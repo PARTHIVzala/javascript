@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID API</title>
+    <link rel="favicon" href="images/covid19.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Dark / Light Toggle -->
+    <button class="toggle" onclick="toggleTheme()">🌙</button>
+
+    <!-- CONTINUOUS MOVING BACKGROUND -->
+    <div class="bg-viruses">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="container">
+
+        <!-- Rotating virus -->
+        <img src="images/covid19.jpg" class="covid-img">
+
+        <h1>🌍 COVID-19 API</h1>
+
+        <!-- India combo -->
+        <div class="india-combo">
+            <span>All country</span>
+        </div>
+
+        <!-- Search -->
+        <div class="search-box">
+            <input id="countryInput" placeholder="Enter country (India, USA)">
+            <button onclick="getData()">Search</button>
+        </div>
+
+        <!-- Cards -->
+        <div class="cards">
+            <div class="card confirmed">
+                <h2>Cases</h2>
+                <p id="cases">-</p>
+            </div>
+            <div class="card recovered">
+                <h2>Recovered</h2>
+                <p id="recovered">-</p>
+            </div>
+            <div class="card deaths">
+                <h2>Deaths</h2>
+                <p id="deaths">-</p>
+            </div>
+        </div>
+
+        <!-- Chart -->
+        <canvas id="covidChart"></canvas>
+
+        <p id="updated" class="updated"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+<!-- 
+ 1. HTML5 document chhe
+
+        <!DOCTYPE html>
+        <html lang="en">
+
+ 2. Theme change maate button Click karta toggleTheme() function call thai (JS ma chhe 🌙 = Dark mode icon .
+ 
+        <button class="toggle" onclick="toggleTheme()">🌙</button>
+ 
+ 3. Background ma virus icons animation maate CSS animation thi viruses continuously move thai
+ 
+        <div class="bg-viruses">
+            <span></span><span></span>...
+        </div>
+ 
+ 4. aakhu content center ma rakhva mate
+
+        <div class="container">
+
+ 5. COVID image show kare CSS thi rotate animation aapyu.
+ 
+        <img src="images/covid19.jpg" class="covid-img">
+
+ 6. User country name enter kare , Button click karta getData() function call , JS API call ahithi thai
+
+        <div class="search-box">
+            <input id="countryInput" placeholder="Enter country (India, USA)">
+            <button onclick="getData()">Search</button>
+        </div>
+
+ 7. API thi total cases update thai.
+
+        <div class="cards">
+            <p id="cases">-</p>
+ 8. Chart.js (ya similar) thi graph draw karva use karyu chhe .
+        
+        <canvas id="covidChart"></canvas>
+
+ 9. API last updated time show kare chhe
+
+        <p id="updated" class="updated"></p>  -->

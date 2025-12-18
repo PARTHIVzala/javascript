@@ -1,0 +1,218 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    transition: 0.3s;
+}
+:root {
+    --bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    --text: #fff;
+}
+
+.light {
+    --bg: #f4f4f4;
+    --text: #111;
+}
+
+
+/* Toggle */
+.toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    z-index: 5;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Rotating virus */
+.covid-img {
+    width: 110px;
+    animation: rotate 6s linear infinite;
+    border-radius: 100%;
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* India combo */
+.india-combo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.search-box {
+    margin-bottom: 30px;
+}
+
+.search-box input {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
+.search-box button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    background: #22c55e;
+    cursor: pointer;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 200px;
+    padding: 20px;
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.confirmed {
+    background: #f59e0b;
+}
+
+.recovered {
+    background: #10b981;
+}
+
+.deaths {
+    background: #ef4444;
+}
+
+canvas {
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+/* UPDATED TEXT */
+.updated {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* ===== CONTINUOUS BACKGROUND VIRUSES ===== */
+.bg-viruses {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bg-viruses span {
+    position: absolute;
+    bottom: -120px;
+    width: 80px;
+    height: 80px;
+    background: url("images/covid19.jpg") no-repeat center/contain;
+    opacity: 0.12;
+    animation: moveUp linear infinite;
+    border-radius: 50%;
+}
+
+/* Different speeds / sizes / delays */
+.bg-viruses span:nth-child(1) {
+    left: 5%;
+    width: 60px;
+    height: 60px;
+    animation-duration: 18s;
+}
+
+.bg-viruses span:nth-child(2) {
+    left: 18%;
+    width: 90px;
+    height: 90px;
+    animation-duration: 22s;
+    animation-delay: 3s;
+}
+
+.bg-viruses span:nth-child(3) {
+    left: 32%;
+    width: 70px;
+    height: 70px;
+    animation-duration: 20s;
+    animation-delay: 1s;
+}
+
+.bg-viruses span:nth-child(4) {
+    left: 48%;
+    width: 110px;
+    height: 110px;
+    animation-duration: 26s;
+    animation-delay: 5s;
+}
+
+.bg-viruses span:nth-child(5) {
+    left: 62%;
+    width: 80px;
+    height: 80px;
+    animation-duration: 24s;
+    animation-delay: 2s;
+}
+
+.bg-viruses span:nth-child(6) {
+    left: 72%;
+    width: 65px;
+    height: 65px;
+    animation-duration: 19s;
+    animation-delay: 4s;
+}
+
+.bg-viruses span:nth-child(7) {
+    left: 82%;
+    width: 95px;
+    height: 95px;
+    animation-duration: 28s;
+    animation-delay: 6s;
+}
+
+.bg-viruses span:nth-child(8) {
+    left: 92%;
+    width: 75px;
+    height: 75px;
+    animation-duration: 21s;
+    animation-delay: 7s;
+}
+
+@keyframes moveUp {
+    from {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    to {
+        transform: translateY(-130vh) rotate(360deg);
+    }
+}

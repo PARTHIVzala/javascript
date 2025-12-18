@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Super Mario Game</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to top, #87CEEB, #ffffff);
+            overflow: hidden;
+        }
+
+        .game {
+            width: 100%;
+            height: 500px;
+            border-bottom: 10px solid green;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+            background-image: url('images/mario-bg.jpg');
+            background-repeat: repeat-x;
+            background-size: cover;
+            animation: backgroundMove 8s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: -800px 0;
+            }
+        }
+
+        .mario {
+            width: 60px;
+            height: 80px;
+            background: url('images/mario.jpg') center/cover;
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+        }
+
+        .obstacle {
+            width: 60px;
+            height: 60px;
+            background: url('images/pipe.jpg') center/cover;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            animation: obstacleMove 2s linear infinite;
+        }
+
+        @keyframes obstacleMove {
+            0% {
+                right: 0;
+            }
+
+            100% {
+                right: 100%;
+            }
+        }
+
+        .jump {
+            animation: jump 0.5s linear;
+        }
+
+        @keyframes jump {
+            0% {
+                bottom: 0;
+            }
+
+            50% {
+                bottom: 150px;
+            }
+
+            100% {
+                bottom: 0;
+            }
+        }
+
+        .game-over {
+            font-size: 3rem;
+            color: red;
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game">
+        <div class="mario"></div>
+        <div class="obstacle"></div>
+        <div class="game-over">GAME OVER</div>
+    </div>
+
+    <script>
+        const mario = document.querySelector('.mario');
+        const obstacle = document.querySelector('.obstacle');
+        const gameOverText = document.querySelector('.game-over');
+
+        function jump() {
+            if (!mario.classList.contains('jump')) {
+                mario.classList.add('jump');
+                setTimeout(() => {
+                    mario.classList.remove('jump');
+                }, 500);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') jump();
+        });
+
+        let checkCollision = setInterval(() => {
+            let marioBottom = parseInt(
+                window.getComputedStyle(mario).getPropertyValue('bottom')
+            );
+            let obstacleLeft = parseInt(
+                window.getComputedStyle(obstacle).getPropertyValue('left')
+            );
+
+            if (obstacleLeft < 100 && obstacleLeft > 0 && marioBottom < 60) {
+                obstacle.style.animation = 'none';
+                obstacle.style.display = 'none';
+                gameOverText.style.display = 'block';
+            }
+        }, 10);
+    </script>
+</body>
+
+</html>

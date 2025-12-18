@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ping Pong — HTML5 Canvas</title>
+  <style>
+    :root{--bg:#0b1220;--panel:#0f1724;--accent:#22c1c3;--muted:#9aa4b2}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial}
+    body{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--bg),#071022);color:#e6eef6}
+    .wrap{width:860px;max-width:95%;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    h1{font-size:18px;margin:0;color:var(--accent)}
+    .controls{display:flex;gap:8px;align-items:center}
+    .btn{background:#0b1320;border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .btn.primary{background:var(--accent);color:#072026;border:none}
+    canvas{display:block;margin:0 auto;background:linear-gradient(180deg,#081022,#071422);border-radius:8px;box-shadow:inset 0 0 40px rgba(0,0,0,0.5)}
+    .hint{font-size:13px;color:var(--muted);margin-top:8px}
+    .footer{display:flex;gap:12px;align-items:center;margin-top:10px;color:var(--muted);font-size:13px}
+    .score{font-weight:700;color:#dbeefd}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Ping Pong — HTML5 Canvas</h1>
+      <div class="controls">
+        <button id="toggleMode" class="btn">Mode: Single Player</button>
+        <button id="restart" class="btn">Restart</button>
+        <button id="soundToggle" class="btn">Sound: On</button>
+      </div>
+    </header>
+
+    <canvas id="game" width="800" height="480"></canvas>
+
+    <div class="footer">
+      <div class="hint">Controls — Left: W / S | Right: ↑ / ↓ | P: Pause</div>
+      <div style="margin-left:auto">Left Score: <span id="leftScore" class="score">0</span> — Right Score: <span id="rightScore" class="score">0</span></div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+
+    const PADDLE_WIDTH = 12;
+    const PADDLE_HEIGHT = 98;
+    const BALL_SIZE = 12;
+    const MAX_SCORE = 10;
+
+    let singlePlayer = true;
+    let paused = false;
+    let soundOn = true;
+
+    const leftPaddle = { x: 16, y: (H - PADDLE_HEIGHT)/2, vy: 0 };
+    const rightPaddle = { x: W - 16 - PADDLE_WIDTH, y: (H - PADDLE_HEIGHT)/2, vy: 0 };
+    const ball = { x: W/2, y: H/2, vx: 6*(Math.random()>.5?1:-1), vy: 3*(Math.random()>.5?1:-1), size: BALL_SIZE };
+
+    let leftScore = 0, rightScore = 0;
+
+    const keys = {};
+    window.addEventListener('keydown', e => { keys[e.key.toLowerCase()] = true; if (e.key === 'p' || e.key === 'P') paused = !paused; });
+    window.addEventListener('keyup', e => { keys[e.key.toLowerCase()] = false; });
+
+    document.getElementById('toggleMode').addEventListener('click', () => { singlePlayer = !singlePlayer; document.getElementById('toggleMode').textContent = 'Mode: ' + (singlePlayer? 'Single Player':'Two Player'); });
+    document.getElementById('restart').addEventListener('click', restart);
+    document.getElementById('soundToggle').addEventListener('click', () => { soundOn = !soundOn; document.getElementById('soundToggle').textContent = 'Sound: ' + (soundOn? 'On':'Off'); });
+
+    function beep(freq = 440, duration = 0.06){
+      if (!soundOn) return;
+      try{
+        const ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
+        const o = ctxAudio.createOscillator();
+        const g = ctxAudio.createGain();
+        o.connect(g); g.connect(ctxAudio.destination);
+        o.type = 'sine'; o.frequency.value = freq; g.gain.value = 0.08;
+        o.start(0); o.stop(ctxAudio.currentTime + duration);
+      }catch(e){ /* ignore if not supported */ }
+    }
+
+    function resetBall(direction = 0){
+      ball.x = W/2; ball.y = H/2; ball.size = BALL_SIZE;
+      const speed = 5 + Math.min(leftScore, rightScore)*0.3;
+      const angle = (Math.random()*0.6 - 0.3);
+      ball.vx = (direction === 0 ? (Math.random()>.5?1:-1) : direction) * speed;
+      ball.vy = angle * speed * 2;
+    }
+
+    function restart(){ leftScore = 0; rightScore = 0; document.getElementById('leftScore').textContent = leftScore; document.getElementById('rightScore').textContent = rightScore; resetBall(); }
+
+    function rectsIntersect(ax,ay,aw,ah,bx,by,bw,bh){
+      return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by;
+    }
+
+    function update(dt){
+      if (paused) return;
+
+      if (keys['w']) leftPaddle.vy = -8; else if (keys['s']) leftPaddle.vy = 8; else leftPaddle.vy = 0;
+      if (!singlePlayer){ if (keys['arrowup']) rightPaddle.vy = -8; else if (keys['arrowdown']) rightPaddle.vy = 8; else rightPaddle.vy = 0; }
+
+      leftPaddle.y += leftPaddle.vy;
+      rightPaddle.y += rightPaddle.vy;
+
+      leftPaddle.y = Math.max(6, Math.min(H - PADDLE_HEIGHT - 6, leftPaddle.y));
+      rightPaddle.y = Math.max(6, Math.min(H - PADDLE_HEIGHT - 6, rightPaddle.y));
+
+      if (singlePlayer){
+        const target = ball.y - PADDLE_HEIGHT/2 + (ball.vy*6);
+        const diff = target - rightPaddle.y;
+
+        const aiSpeed = 5 + Math.min(6, Math.abs(leftScore - rightScore));
+        rightPaddle.y += Math.sign(diff) * Math.min(Math.abs(diff), aiSpeed);
+        rightPaddle.y = Math.max(6, Math.min(H - PADDLE_HEIGHT - 6, rightPaddle.y));
+      }
+
+      ball.x += ball.vx;
+      ball.y += ball.vy;
+
+      if (ball.y <= 6){ ball.y = 6; ball.vy *= -1; beep(880,0.03); }
+      if (ball.y + ball.size >= H - 6){ ball.y = H - 6 - ball.size; ball.vy *= -1; beep(880,0.03); }
+
+      if (rectsIntersect(ball.x, ball.y, ball.size, ball.size, leftPaddle.x, leftPaddle.y, PADDLE_WIDTH, PADDLE_HEIGHT)){
+        ball.x = leftPaddle.x + PADDLE_WIDTH; 
+        ball.vx = Math.abs(ball.vx) + 0.4; 
+
+        const hitPoint = (ball.y + ball.size/2) - (leftPaddle.y + PADDLE_HEIGHT/2);
+        ball.vy = hitPoint * 0.12;
+        beep(600, 0.04);
+      }
+
+      if (rectsIntersect(ball.x, ball.y, ball.size, ball.size, rightPaddle.x, rightPaddle.y, PADDLE_WIDTH, PADDLE_HEIGHT)){
+        ball.x = rightPaddle.x - ball.size;
+        ball.vx = -Math.abs(ball.vx) - 0.4;
+        const hitPoint = (ball.y + ball.size/2) - (rightPaddle.y + PADDLE_HEIGHT/2);
+        ball.vy = hitPoint * 0.12;
+        beep(900, 0.04);
+      }
+
+      if (ball.x < -40){
+        rightScore++;
+        document.getElementById('rightScore').textContent = rightScore;
+        if (rightScore >= MAX_SCORE){ alert('Right Player wins!'); restart(); return; }
+        resetBall(1);
+      }
+
+      if (ball.x > W + 40){ // left scores
+        leftScore++;
+        document.getElementById('leftScore').textContent = leftScore;
+        if (leftScore >= MAX_SCORE){ alert('Left Player wins!'); restart(); return; }
+        resetBall(-1);
+      }
+    }
+
+    function drawNet(){
+      ctx.save();
+      ctx.fillStyle = 'rgba(255,255,255,0.06)';
+      const step = 18; let x = W/2 - 1;
+      for (let y=12; y < H-12; y += step){ ctx.fillRect(x, y, 2, 10); }
+      ctx.restore();
+    }
+
+    function draw(){
+
+      ctx.clearRect(0,0,W,H);
+
+      const g = ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,'rgba(16,22,32,0.6)'); g.addColorStop(1,'rgba(6,12,20,0.6)'); ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+      ctx.save(); ctx.fillStyle = 'rgba(34,193,195,0.02)'; ctx.fillRect(0,0,W,H); ctx.restore();
+
+      drawNet();
+
+      ctx.fillStyle = '#e6f7f7';
+      roundRect(ctx, leftPaddle.x, leftPaddle.y, PADDLE_WIDTH, PADDLE_HEIGHT, 6, true, false);
+      roundRect(ctx, rightPaddle.x, rightPaddle.y, PADDLE_WIDTH, PADDLE_HEIGHT, 6, true, false);
+
+      ctx.beginPath(); ctx.fillStyle = '#ffffff'; ctx.fillRect(ball.x, ball.y, ball.size, ball.size);
+
+      ctx.font = '48px system-ui, Segoe UI, Roboto'; ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(255,255,255,0.06)';
+      ctx.fillText(leftScore, W*0.25, 76); ctx.fillText(rightScore, W*0.75, 76);
+
+      ctx.font = '12px system-ui'; ctx.textAlign = 'left'; ctx.fillStyle = 'rgba(255,255,255,0.18)'; ctx.fillText('W/S', 10, H - 10); ctx.textAlign = 'right'; ctx.fillText('↑/↓', W - 10, H - 10);
+    }
+
+    function roundRect(ctx, x, y, w, h, r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); ctx.fill(); }
+
+    let last = performance.now();
+    function loop(now){
+      const dt = (now - last) / 1000;
+      last = now;
+      update(dt);
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    resetBall();
+    requestAnimationFrame(loop);
+
+    function fitCanvas(){
+      const box = canvas.getBoundingClientRect();
+      const scale = Math.min((window.innerWidth - 80) / W, (window.innerHeight - 160) / H, 1);
+      canvas.style.width = Math.round(W * scale) + 'px';
+      canvas.style.height = Math.round(H * scale) + 'px';
+    }
+    window.addEventListener('resize', fitCanvas); fitCanvas();
+
+    canvas.addEventListener('click', () => canvas.focus());
+  </script>
+</body>
+</html>

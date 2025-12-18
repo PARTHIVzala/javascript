@@ -1,0 +1,96 @@
+body {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.game-container {
+    background: rgb(216, 87, 12);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    text-align: center;
+    width: 350px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background: #7bb6f1;
+    border-radius: 10px;
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.cell:hover {
+    background: #e9ecef;
+}
+
+.cell.animated {
+    animation: pop 0.3s ease-in-out;
+}
+
+@keyframes pop {
+    0% { transform: scale(0); }
+    80% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.winning {
+    animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+    0% { background-color: #7bb6f1; }
+    100% { background-color: #28a745; color: white; }
+}
+
+.draw {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+}
+
+.winner {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.btn-reset {
+    margin-top: 20px;
+}
+
+@media (max-width: 500px) {
+    .grid {
+        grid-template-columns: repeat(3, 80px);
+        grid-gap: 8px;
+    }
+    .cell {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+    .game-container {
+        width: 90%;
+    }
+}

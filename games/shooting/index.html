@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Shooter</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            font-family: Arial, sans-serif;
+            background: #0b1220;
+            color: #e6eef8;
+        }
+
+        #gameWrap {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            align-items: flex-start;
+        }
+
+        canvas {
+            background: linear-gradient(180deg, #1b2735, #0f1720);
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .6);
+        }
+
+        #ui {
+            width: 260px;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .stat {
+            margin: 6px 0;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #1f8ef1;
+            color: white;
+            font-weight: 600;
+        }
+
+        small {
+            color: #9fb0c8;
+            display: block;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="gameWrap">
+        <canvas id="gameCanvas" width="900" height="600"></canvas>
+        <div id="ui">
+            <div class="panel">
+                <h1>Mini Shooter (OOP)</h1>
+                <div class="stat">Use <strong>W A S D</strong> to move</div>
+                <div class="stat">Left-click to shoot</div>
+                <div class="stat">Press <strong>R</strong> to Restart</div>
+                <small>Tip: Try kill as many enemies as you can</small>
+            </div>
+
+            <div class="panel">
+                <div class="stat" id="hp">HP: 100</div>
+                <div class="stat" id="score">Score: 0</div>
+                <div class="stat" id="enemiesCount">Enemies: 0</div>
+                <div style="margin-top:8px;">
+                    <button id="spawnBtn">Spawn Wave</button>
+                    <button id="clearBtn">Clear Enemies</button>
+                </div>
+            </div>
+
+            <div class="panel" id="logPanel">
+                <h1>Log</h1>
+                <div id="log" style="max-height:260px; overflow:auto; font-size:13px; color:#cfe7ff;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+        function dist(x1, y1, x2, y2) { return Math.hypot(x2 - x1, y2 - y1); }
+        function randRange(a, b) { return Math.random() * (b - a) + a; }
+
+        class Input {
+            constructor(canvas) {
+                this.keys = {};
+                this.mouse = { x: 0, y: 0, down: false };
+                window.addEventListener('keydown', e => this.keys[e.key.toLowerCase()] = true);
+                window.addEventListener('keyup', e => this.keys[e.key.toLowerCase()] = false);
+                canvas.addEventListener('mousemove', e => {
+                    const rect = canvas.getBoundingClientRect();
+                    this.mouse.x = e.clientX - rect.left;
+                    this.mouse.y = e.clientY - rect.top;
+                });
+                canvas.addEventListener('mousedown', e => this.mouse.down = true);
+                canvas.addEventListener('mouseup', e => this.mouse.down = false);
+            }
+        }
+
+        class Player {
+            constructor(x, y) {
+                this.x = x; this.y = y;
+                this.radius = 16;
+                this.speed = 220;
+                this.hp = 100;
+                this.fireRate = 0.18;
+                this.fireTimer = 0;
+                this.bulletsPerShot = 1;
+                this.bulletSpeed = 600;
+            }
+            update(dt, input, bullets) {
+                let dx = 0, dy = 0;
+                if (input.keys['w']) dy -= 1;
+                if (input.keys['s']) dy += 1;
+                if (input.keys['a']) dx -= 1;
+                if (input.keys['d']) dx += 1;
+                if (dx !== 0 || dy !== 0) {
+                    const len = Math.hypot(dx, dy);
+                    dx /= len; dy /= len;
+                    this.x += dx * this.speed * dt;
+                    this.y += dy * this.speed * dt;
+                }
+                this.x = clamp(this.x, this.radius, game.width - this.radius);
+                this.y = clamp(this.y, this.radius, game.height - this.radius);
+
+                this.fireTimer -= dt;
+                if (input.mouse.down && this.fireTimer <= 0) {
+                    this.fireTimer = this.fireRate;
+                    this.shoot(input.mouse, bullets);
+                }
+            }
+            shoot(mouse, bullets) {
+
+                const angle = Math.atan2(mouse.y - this.y, mouse.x - this.x);
+
+                const vx = Math.cos(angle) * this.bulletSpeed;
+                const vy = Math.sin(angle) * this.bulletSpeed;
+
+                const startX = this.x + Math.cos(angle) * (this.radius + 6);
+                const startY = this.y + Math.sin(angle) * (this.radius + 6);
+                bullets.push(new Bullet(startX, startY, vx, vy, 'player'));
+            }
+            takeDamage(amount) {
+                this.hp -= amount;
+                if (this.hp < 0) this.hp = 0;
+            }
+            render(ctx) {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+
+                ctx.beginPath();
+                ctx.fillStyle = '#4ad6ff';
+                ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                const angle = Math.atan2(game.input.mouse.y - this.y, game.input.mouse.x - this.x);
+                ctx.rotate(angle);
+                ctx.fillStyle = '#0b3954';
+                ctx.fillRect(10, -4, 18, 8);
+                ctx.restore();
+            }
+        }
+
+        class Bullet {
+            constructor(x, y, vx, vy, owner) {
+                this.x = x; this.y = y;
+                this.vx = vx; this.vy = vy;
+                this.radius = 4;
+                this.owner = owner;
+                this.life = 1.8;
+                this.damage = owner === 'player' ? 34 : 10;
+            }
+            update(dt) {
+                this.x += this.vx * dt;
+                this.y += this.vy * dt;
+                this.life -= dt;
+            }
+            render(ctx) {
+                ctx.beginPath();
+                ctx.fillStyle = (this.owner === 'player') ? '#ffd000' : '#ff6b6b';
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        class Enemy {
+            constructor(x, y, level = 1) {
+                this.x = x; this.y = y;
+                this.radius = 14;
+                this.speed = randRange(40, 90) + level * 4;
+                this.hp = 40 + level * 10;
+                this.targetAttract = 1.0;
+                this.shootTimer = randRange(1.2, 3.0);
+                this.level = level;
+            }
+            update(dt, player, bullets) {
+
+                const angle = Math.atan2(player.y - this.y, player.x - this.x);
+                this.x += Math.cos(angle) * this.speed * dt * this.targetAttract;
+                this.y += Math.sin(angle) * this.speed * dt * this.targetAttract;
+
+                this.shootTimer -= dt;
+                if (this.shootTimer <= 0 && this.hp > 0) {
+                    this.shootTimer = randRange(1.2, 2.4);
+                    const bv = 260 + this.level * 20;
+                    const vx = Math.cos(angle) * bv;
+                    const vy = Math.sin(angle) * bv;
+                    bullets.push(new Bullet(this.x + Math.cos(angle) * (this.radius + 6), this.y + Math.sin(angle) * (this.radius + 6), vx, vy, 'enemy'));
+                }
+            }
+            takeDamage(amount) {
+                this.hp -= amount;
+            }
+            render(ctx) {
+                ctx.beginPath();
+                ctx.fillStyle = '#ff7f50';
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#222';
+                ctx.fillRect(this.x - this.radius, this.y - this.radius - 8, this.radius * 2, 5);
+                ctx.fillStyle = '#6ee66e';
+                const w = clamp((this.hp / (40 + this.level * 10)) * this.radius * 2, 0, this.radius * 2);
+                ctx.fillRect(this.x - this.radius, this.y - this.radius - 8, w, 5);
+            }
+        }
+
+        class Game {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.width = canvas.width;
+                this.height = canvas.height;
+                this.input = new Input(canvas);
+                this.player = new Player(this.width / 2, this.height / 2);
+                this.bullets = [];
+                this.enemies = [];
+                this.score = 0;
+                this.lastTime = 0;
+                this.spawnInterval = 3.0;
+                this.spawnTimer = 0;
+                this.wave = 1;
+                this.running = true;
+
+                this.logEl = document.getElementById('log');
+                this.hpEl = document.getElementById('hp');
+                this.scoreEl = document.getElementById('score');
+                this.enemiesCountEl = document.getElementById('enemiesCount');
+
+                document.getElementById('spawnBtn').onclick = () => this.spawnWave();
+                document.getElementById('clearBtn').onclick = () => { this.enemies = []; this.log('Enemies cleared'); };
+                window.addEventListener('keydown', e => {
+                    if (e.key.toLowerCase() === 'r') this.restart();
+                });
+
+                requestAnimationFrame(t => { this.lastTime = t / 1000; this.loop(t / 1000); });
+                this.log('Game started');
+            }
+
+            log(txt) {
+                const time = new Date().toLocaleTimeString();
+                this.logEl.innerHTML = `<div>[${time}] ${txt}</div>` + this.logEl.innerHTML;
+            }
+
+            spawnEnemy(x, y, level = 1) {
+                this.enemies.push(new Enemy(x, y, level));
+            }
+
+            spawnWave() {
+                const count = Math.min(12, 3 + this.wave * 2);
+                for (let i = 0; i < count; i++) {
+                    const side = Math.random();
+                    let x, y;
+                    if (side < 0.25) { x = randRange(-40, -10); y = randRange(0, this.height); }
+                    else if (side < 0.5) { x = randRange(this.width + 10, this.width + 40); y = randRange(0, this.height); }
+                    else if (side < 0.75) { x = randRange(0, this.width); y = randRange(-40, -10); }
+                    else { x = randRange(0, this.width); y = randRange(this.height + 10, this.height + 40); }
+                    this.spawnEnemy(x, y, Math.ceil(this.wave / 2));
+                }
+                this.log(`Spawned wave ${this.wave} — ${count} enemies`);
+                this.wave++;
+            }
+
+            restart() {
+                this.player = new Player(this.width / 2, this.height / 2);
+                this.bullets = [];
+                this.enemies = [];
+                this.score = 0;
+                this.wave = 1;
+                this.spawnTimer = 0;
+                this.running = true;
+                this.log('Game restarted');
+            }
+
+            loop(now) {
+                if (!this.running) return;
+                const dt = now - this.lastTime;
+                this.lastTime = now;
+                this.update(dt);
+                this.render();
+                requestAnimationFrame(t => this.loop(t / 1000));
+            }
+
+            update(dt) {
+                this.spawnTimer -= dt;
+                if (this.spawnTimer <= 0) {
+                    this.spawnTimer = this.spawnInterval;
+                    this.spawnWave();
+                }
+
+                this.player.update(dt, this.input, this.bullets);
+
+                for (let b of this.bullets) b.update(dt);
+                this.bullets = this.bullets.filter(b => b.life > 0 && b.x > -50 && b.x < this.width + 50 && b.y > -50 && b.y < this.height + 50);
+
+                for (let e of this.enemies) e.update(dt, this.player, this.bullets);
+
+                for (let b of this.bullets.filter(x => x.owner === 'player')) {
+                    for (let e of this.enemies) {
+                        if (e.hp > 0 && dist(b.x, b.y, e.x, e.y) < b.radius + e.radius) {
+                            e.takeDamage(b.damage);
+                            b.life = 0;
+                            if (e.hp <= 0) {
+                                this.score += 10 + e.level * 5;
+                                this.log(`Enemy eliminated (+${10 + e.level * 5})`);
+                            }
+                        }
+                    }
+                }
+
+                for (let b of this.bullets.filter(x => x.owner === 'enemy')) {
+                    if (dist(b.x, b.y, this.player.x, this.player.y) < b.radius + this.player.radius) {
+                        this.player.takeDamage(b.damage);
+                        b.life = 0;
+                        this.log(`Player hit -${b.damage} HP`);
+                    }
+                }
+
+                for (let e of this.enemies) {
+                    if (dist(e.x, e.y, this.player.x, this.player.y) < e.radius + this.player.radius) {
+                        this.player.takeDamage(12 * dt);
+                    }
+                }
+
+                this.enemies = this.enemies.filter(e => e.hp > 0);
+
+                this.hpEl.textContent = `HP: ${Math.max(0, Math.floor(this.player.hp))}`;
+                this.scoreEl.textContent = `Score: ${this.score}`;
+                this.enemiesCountEl.textContent = `Enemies: ${this.enemies.length}`;
+
+                if (this.player.hp <= 0) {
+                    this.running = false;
+                    this.log('Player eliminated — GAME OVER');
+                    setTimeout(() => {
+                        alert(`Game Over\nScore: ${this.score}\nPress R to restart`);
+                    }, 50);
+                }
+            }
+
+            render() {
+                const ctx = this.ctx;
+                ctx.clearRect(0, 0, this.width, this.height);
+
+                const gridSize = 40;
+                ctx.strokeStyle = 'rgba(255,255,255,0.02)';
+                ctx.lineWidth = 1;
+                for (let x = 0; x < this.width; x += gridSize) {
+                    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, this.height); ctx.stroke();
+                }
+                for (let y = 0; y < this.height; y += gridSize) {
+                    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(this.width, y); ctx.stroke();
+                }
+
+                for (let b of this.bullets) b.render(ctx);
+                for (let e of this.enemies) e.render(ctx);
+                this.player.render(ctx);
+
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+                ctx.arc(this.input.mouse.x, this.input.mouse.y, 6, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(this.input.mouse.x - 12, this.input.mouse.y);
+                ctx.lineTo(this.input.mouse.x + 12, this.input.mouse.y);
+                ctx.moveTo(this.input.mouse.x, this.input.mouse.y - 12);
+                ctx.lineTo(this.input.mouse.x, this.input.mouse.y + 12);
+                ctx.stroke();
+            }
+        }
+
+        const canvas = document.getElementById('gameCanvas');
+        const game = new Game(canvas);
+
+        window.addEventListener('resize', () => {
+        });
+    </script>
+</body>
+
+</html>

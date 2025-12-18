@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="IMG/banner.jpg">
+    <title>FOOD RESTAURANT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>FOOD SHOP</h1>
+        <img src="IMG/banner.jpg" alt="banner">
+    </div>
+
+    <div class="products">
+        <div class="product">
+            <img src="IMG/burger.jpg" alt="burger">
+            <h3>Burger</h3>
+            <p>₹99</p>
+            <button onclick="addToCart('Burger', 99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="IMG/pizza.jpeg" alt="pizza">
+            <h3>Pizza</h3>
+            <p>₹199</p>
+            <button onclick="addToCart('Pizza', 199)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="IMG/fries.jpeg" alt="fries">
+            <h3>Fries</h3>
+            <p>₹79</p>
+            <button onclick="addToCart('Fries', 79)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="IMG/frankie.jpeg" alt="frankie">
+            <h3>Frankie</h3>
+            <p>₹60</p>
+            <button onclick="addToCart('Frankie', 60)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="IMG/handvo.jpeg" alt="handvo">
+            <h3>Handvo</h3>
+            <p>₹149</p>
+            <button onclick="addToCart('Handvo', 149)">Add to Cart</button>
+        </div>
+    </div>
+
+    <table id="billTable" style="display:none;">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Price (₹)</th>
+                <th>Quantity</th>
+                <th>Total (₹)</th>
+                <th>Discount (₹)</th>
+                <th>Pay (₹)</th>
+            </tr>
+        </thead>
+        <tbody id="cart-body"></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">TOTAL PAYOUT</td>
+                <td id="grandTotal">0</td>
+                <td id="grandDiscount">0</td>
+                <td id="grandPay">0</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>

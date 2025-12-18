@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dog Gallery — Dog CEO API</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🐶 Dog Gallery</h1>
+    <p class="subtitle">Powered by <a href="https://dog.ceo/dog-api/" target="_blank" rel="noopener">Dog CEO API</a></p>
+  </header>
+
+  <main class="app">
+    <section class="controls">
+      <div class="control-row">
+        <label for="breedSelect">Breed</label>
+        <select id="breedSelect">
+          <option value="all">— All Breeds —</option>
+        </select>
+
+        <label for="subBreedSelect" id="subBreedLabel" class="hidden">Sub-breed</label>
+        <select id="subBreedSelect" class="hidden"></select>
+
+        <button id="showBtn" class="btn">Show 20 Dogs</button>
+        <button id="loadMoreBtn" class="btn ghost">Load more 20</button>
+      </div>
+
+      <div class="control-row">
+        <input id="searchInput" placeholder="Search breeds (type and press Enter)"/>
+        <button id="randomBtn" class="btn secondary">Random 20</button>
+        <button id="clearBtn" class="btn ghost">Clear</button>
+        <button id="viewFavsBtn" class="btn">View Favorites (<span id="favCount">0</span>)</button>
+      </div>
+    </section>
+
+    <section id="status" class="status"></section>
+
+    <section id="gallery" class="gallery"></section>
+
+    <aside id="favoritesPanel" class="favoritesPanel hidden">
+      <div class="favHeader">
+        <h3>❤️ Favorites</h3>
+        <div>
+          <button id="closeFavs" class="btn ghost">Close</button>
+          <button id="clearFavs" class="btn ghost">Clear All</button>
+        </div>
+      </div>
+      <div id="favList" class="favList"></div>
+      <p id="favEmpty" class="muted">No favorites yet.</p>
+    </aside>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox hidden" role="dialog">
+    <button id="lbClose" class="lbClose" aria-label="Close">✕</button>
+
+    <button id="lbPrev" class="lbNav prev">❮</button>
+    <div class="lbInner">
+      <img id="lbImage" alt="">
+      <div id="lbIndex" class="lbIndex"></div>
+    </div>
+    <button id="lbNext" class="lbNav next">❯</button>
+
+    <div class="lbActions">
+      <a id="lbOpen" href="#" target="_blank" rel="noopener" class="btn ghost">Open</a>
+      <button id="lbDownload" class="btn">Download</button>
+      <button id="lbFav" class="btn">♥ Favorite</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <small>Made with ❤️ — Dog CEO API</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

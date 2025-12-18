@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amazon</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <header class="navbar">
+    <h1><i>
+        <div class="logo">AMAZON</div>
+      </i></h1>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search products..." />
+    </div>
+
+    <div class="filters">
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+      </select>
+    </div>
+
+    <div class="sort">
+      <select id="sortSelect">
+        <option value="default">Sort</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+      </select>
+    </div>
+
+    <!-- Login / Signup button -->
+    <a href="auth.html" class="auth-btn">Login / Signup</a>
+
+    <div class="cart-icon" id="cartToggle">
+      🛒 <span id="cartCount">0</span>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <div id="product-container" class="product-grid">
+      <!-- Products will be injected here -->
+    </div>
+  </main>
+
+  <!-- Cart Sidebar -->
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <button id="closeCart">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items">
+      <!-- Cart items here -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        Total: ₹<span id="cartTotal">0</span>
+      </div>
+      <button class="checkout-btn">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- Product Details Modal -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeModal">✕</button>
+      <div class="modal-body">
+        <img id="modalImage" src="" alt="Product Image" />
+        <div class="modal-info">
+          <h2 id="modalTitle"></h2>
+          <p id="modalDescription"></p>
+          <p class="modal-price">Price: ₹<span id="modalPrice"></span></p>
+          <button id="modalAddToCart" class="btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay for modal & cart -->
+  <div id="overlay" class="overlay"></div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

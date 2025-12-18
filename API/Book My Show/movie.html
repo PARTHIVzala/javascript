@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/webp" href="images/favicon.webp">
+    <title>Movie Details — BookMyShow Demo</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <!-- HEADER (same as home) -->
+    <header class="bms-header">
+        <div class="bms-top">
+            <div class="bms-top-left">
+                <div class="bms-logo">
+                    <div class="bms-logo-mark">
+                        <img src="images/favicon.webp" alt="Logo">
+                    </div>
+                    <span class="bms-logo-text">BookMyShow</span>
+                </div>
+
+                <div class="bms-location">
+                    <span class="loc-city">Mumbai</span>
+                    <span class="loc-change">Change ▾</span>
+                </div>
+            </div>
+
+            <div class="bms-top-middle">
+                <div class="bms-search">
+                    <input placeholder="Search for Movies, Events, Plays, Sports and Activities" />
+                    <button class="bms-search-btn">🔍</button>
+                </div>
+            </div>
+
+            <div class="bms-top-right">
+                <button class="btn-outline" onclick="window.location.href='index.html'">Home</button>
+                <button class="icon-btn">☰</button>
+            </div>
+        </div>
+
+        <div class="bms-nav">
+            <nav class="bms-nav-left">
+                <a href="index.html" class="active">Movies</a>
+                <a href="#">Stream</a>
+                <a href="#">Events</a>
+                <a href="#">Plays</a>
+                <a href="#">Sports</a>
+                <a href="#">Activities</a>
+            </nav>
+            <nav class="bms-nav-right">
+                <a href="#">ListYourShow</a>
+                <a href="#">Corporates</a>
+                <a href="#">Offers</a>
+                <a href="#">Gift Cards</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MOVIE DETAILS -->
+    <main class="detail-main" id="detailPage">
+        <section class="detail-wrapper">
+            <div class="detail-poster">
+                <img id="detailImg" src="" alt="Movie Poster">
+            </div>
+
+            <div class="detail-info">
+                <h1 id="detailTitle"></h1>
+                <p class="muted" id="detailGenreRating"></p>
+
+                <div class="detail-tags">
+                    <span class="badge" id="detailGenreBadge"></span>
+                    <span class="badge" id="detailRatingBadge"></span>
+                    <span class="badge" id="detailLanguageBadge"></span>
+                    <span class="badge" id="detailFormatBadge"></span>
+                </div>
+
+                <p class="detail-desc" id="detailDesc"></p>
+
+                <div class="detail-meta-grid">
+                    <div class="meta-block">
+                        <div class="meta-label">Duration</div>
+                        <div class="meta-value" id="detailDuration">2h 30m</div>
+                    </div>
+                    <div class="meta-block">
+                        <div class="meta-label">Release</div>
+                        <div class="meta-value" id="detailRelease">2024</div>
+                    </div>
+                    <div class="meta-block">
+                        <div class="meta-label">Genre</div>
+                        <div class="meta-value" id="detailGenreSmall"></div>
+                    </div>
+                </div>
+
+                <div class="detail-actions">
+                    <button class="btn">Book Tickets</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3>Available Shows</h3>
+            <div class="show-grid">
+                <div class="show-card">
+                    <div>
+                        <div class="show-cinema">PVR: Inorbit Mall</div>
+                        <div class="show-tags">IMAX • Recliner</div>
+                    </div>
+                    <div class="show-times">
+                        <button class="time-pill">10:30 AM</button>
+                        <button class="time-pill">1:45 PM</button>
+                        <button class="time-pill">6:15 PM</button>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <div>
+                        <div class="show-cinema">INOX: Phoenix Marketcity</div>
+                        <div class="show-tags">4DX • Snacks</div>
+                    </div>
+                    <div class="show-times">
+                        <button class="time-pill">12:00 PM</button>
+                        <button class="time-pill">4:30 PM</button>
+                        <button class="time-pill">9:00 PM</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div>
+                <strong>BookMyShow</strong>
+                <div class="muted small">Movie details page demo.</div>
+            </div>
+            <div class="muted small">Not a real ticketing site</div>
+        </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>

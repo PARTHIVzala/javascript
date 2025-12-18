@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CRUD Form — Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>CRUD Form</h1>
+        </header>
+
+        <main class="main-grid">
+            <section class="form-section card">
+                <h2 id="form-title">Add New Entry</h2>
+                <form id="user-form" autocomplete="off">
+                    <input type="hidden" id="entry-id" />
+
+                    <label>
+                        <span>Name</span>
+                        <input id="name" type="text" placeholder="Full name" required />
+                    </label>
+
+                    <label>
+                        <span>Age</span>
+                        <input id="age" type="number" min="0" placeholder="e.g. 25" required />
+                    </label>
+
+                    <label>
+                        <span>Gender</span>
+                        <select id="gender" required>
+                            <option value="">Select gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>City</span>
+                        <input id="city" type="text" placeholder="City" required />
+                    </label>
+
+                    <label class="image-label">
+                        <span>Image</span>
+                        <div class="image-row">
+                            <input id="image" type="file" accept="image/*" />
+                            <button type="button" id="clear-image" class="mini-btn" title="Clear image">Clear</button>
+                        </div>
+                        <div class="preview-wrapper">
+                            <img id="img-preview" alt="preview" />
+                        </div>
+                    </label>
+
+                    <label>
+                        <span>Notes</span>
+                        <textarea id="notes" rows="4" placeholder="Additional notes..."></textarea>
+                    </label>
+
+                    <div class="form-actions">
+                        <button type="submit" class="primary-btn" id="save-btn">Save</button>
+                        <button type="reset" class="secondary-btn" id="reset-btn">Reset</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="list-section card">
+                <div class="list-header">
+                    <h2>Entries</h2>
+                    <div>
+                        <button id="clear-all" class="danger-btn">Clear All</button>
+                    </div>
+                </div>
+
+                <div id="entries-list" class="entries-list">
+                    <!-- Entries injected here -->
+                </div>
+
+                <div id="empty-state" class="empty-state">No entries yet. Add one using the form.</div>
+            </section>
+        </main>
+
+        <footer>
+            <small>Data saved locally in your browser (localStorage).</small>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

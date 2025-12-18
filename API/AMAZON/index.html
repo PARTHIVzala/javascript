@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Amazon</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- TOP NAVBAR -->
+  <header class="nav" id="top">
+    <div class="nav-left">
+      <a href="index.html" class="logo-link">
+        <div class="logo">Amazon</div>
+      </a>
+
+      <div class="nav-location">
+        <span class="small-text">Deliver to</span>
+        <span class="bold-text">India</span>
+      </div>
+    </div>
+
+    <div class="nav-search">
+      <select class="search-select">
+        <option>All</option>
+        <option>Electronics</option>
+        <option>Mobiles</option>
+        <option>Fashion</option>
+      </select>
+      <input class="search-input" type="text" placeholder="Search amazona.in" />
+      <button class="search-btn">🔍</button>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-item">
+        <span class="small-text">Hello, Sign in</span>
+        <span class="bold-text">Account & Lists</span>
+      </div>
+      <div class="nav-item">
+        <span class="small-text">Returns</span>
+        <span class="bold-text">& Orders</span>
+      </div>
+      <!-- CART BUTTON -->
+      <div class="nav-cart" id="cart-btn">
+        🛒
+        <span class="cart-count" id="cart-count">0</span>
+        <span class="bold-text">Cart</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECONDARY NAVBAR -->
+  <nav class="sub-nav">
+    <button class="menu-btn">☰ All</button>
+    <a href="#">Fresh</a>
+    <a href="#">Amazon miniTV</a>
+    <a href="#">Sell</a>
+    <a href="#">Best Sellers</a>
+    <a href="#">Mobiles</a>
+    <a href="#">Today’s Deals</a>
+    <a href="#">Customer Service</a>
+    <a href="#">Prime</a>
+  </nav>
+
+  <!-- HERO SLIDER -->
+  <section class="hero">
+    <div class="hero-slide active" data-bg="slide-1">
+      <div class="hero-content">
+        <h2>Great Indian Sale</h2>
+        <p>Up to 60% off on Electronics & Fashion</p>
+        <button class="hero-btn">Shop now</button>
+      </div>
+    </div>
+
+    <div class="hero-slide" data-bg="slide-2">
+      <div class="hero-content">
+        <h2>Top deals on mobiles</h2>
+        <p>Exchange offers + No-cost EMI</p>
+        <button class="hero-btn">Grab the offer</button>
+      </div>
+    </div>
+
+    <div class="hero-slide" data-bg="slide-3">
+      <div class="hero-content">
+        <h2>Appliances mega sale</h2>
+        <p>Refrigerators, ACs & Washing Machines</p>
+        <button class="hero-btn">Explore appliances</button>
+      </div>
+    </div>
+
+    <button class="hero-arrow hero-prev">‹</button>
+    <button class="hero-arrow hero-next">›</button>
+  </section> &nbsp; 
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <!-- DEAL OF THE DAY WITH TIMER -->
+    <section class="deal-row">
+      <div class="deal-card">
+        <h1 class="deal">BEST OFFER</h1>
+        <p class="deal-subtitle">Up to 70% off | Electronics & accessories</p>
+        <div class="deal-timer">
+          <span id="deal-countdown">--:--:--</span>
+        </div>
+        <button class="deal-btn">View all deals</button>
+      </div>
+
+      <div class="deal-card img-card">
+        <h4>Smartphones under ₹15,000</h4>
+        <div class="fake-img"><img src="images/phone.jpg" alt=""></div>
+        <a href="#">See more</a>
+      </div>
+
+      <div class="deal-card img-card">
+        <h4>Headphones & Speakers</h4>
+        <div class="fake-img"><img src="images/audio.jpg" alt=""></div>
+        <a href="#">See more</a>
+      </div>
+
+      <div class="deal-card img-card">
+        <h4>Kitchen essentials</h4>
+        <div class="fake-img"><img src="images/kitchen.jpg" alt=""></div>
+        <a href="#">See more</a>
+      </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS (REAL ADD TO CART ITEMS) -->
+    <section class="featured-row">
+      <h2 class="section-title">Top picks for you</h2>
+      <div class="featured-grid">
+        <!-- PRODUCT CARD 1 -->
+        <article class="featured-card">
+          <h3 class="product-title"><img src="images/watch.jpg" alt=""></h3>
+          <p class="product-price">₹1,999</p>
+          <button
+            class="add-to-cart-btn"
+            data-id="p1"
+            data-name="Noise ColorFit Smartwatch"
+            data-price="1999"
+          >
+            Add to Cart
+          </button>
+          <a href="product.html?id=p1" class="view-link">View details</a>
+        </article>
+
+        <!-- PRODUCT CARD 2 -->
+        <article class="featured-card">
+          <h3 class="product-title"><img src="images/headphone.jpg" alt=""></h3>
+          <p class="product-price">₹1,499</p>
+          <button
+            class="add-to-cart-btn"
+            data-id="p2"
+            data-name="boAt Rockerz Headphones"
+            data-price="1499"
+          >
+            Add to Cart
+          </button>
+          <a href="product.html?id=p2" class="view-link">View details</a>
+        </article>
+
+        <!-- PRODUCT CARD 3 -->
+        <article class="featured-card">
+          <h3 class="product-title"><img src="images/smarttv.jpg" alt=""></h3>
+          <p class="product-price">₹14,999</p>
+          <button
+            class="add-to-cart-btn"
+            data-id="p3"
+            data-name="Samsung 32&quot; Smart TV"
+            data-price="14999"
+          >
+            Add to Cart
+          </button>
+          <a href="product.html?id=p3" class="view-link">View details</a>
+        </article>
+
+        <!-- PRODUCT CARD 4 -->
+        <article class="featured-card">
+          <h3 class="product-title"><img src="images/realme.jpg" alt=""></h3>
+          <p class="product-price">₹11,999</p>
+          <button
+            class="add-to-cart-btn"
+            data-id="p4"
+            data-name="Realme Narzo Smartphone"
+            data-price="11999"
+          >
+            Add to Cart
+          </button>
+          <a href="product.html?id=p4" class="view-link">View details</a>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CART OVERLAY & PANEL -->
+  <div class="cart-overlay" id="cart-overlay">
+    <div class="cart-panel">
+      <div class="cart-header">
+        <h2>Your Cart</h2>
+        <button class="cart-close-btn" id="cart-close-btn">✕</button>
+      </div>
+
+      <div class="cart-body">
+        <ul class="cart-items" id="cart-items">
+          <!-- JS se items aayenge -->
+        </ul>
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span>Subtotal:</span>
+          <span id="cart-total">₹0</span>
+        </div>
+        <button class="cart-clear-btn" id="cart-clear-btn">Clear Cart</button>
+        <button class="cart-checkout-btn">Proceed to Buy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <a href="#top" class="back-to-top">Back to top</a>
+
+    <div class="footer-links">
+      <div>
+        <h4>Get to Know Us</h4>
+        <a href="#">About us</a>
+        <a href="#">Careers</a>
+        <a href="#">Press Releases</a>
+      </div>
+      <div>
+        <h4>Connect with Us</h4>
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+      </div>
+      <div>
+        <h4>Make Money with Us</h4>
+        <a href="#">Sell on amazona</a>
+        <a href="#">Advertise your products</a>
+        <a href="#">Become an Affiliate</a>
+      </div>
+      <div>
+        <h4>Let Us Help You</h4>
+        <a href="#">Your Account</a>
+        <a href="#">Returns Centre</a>
+        <a href="#">Help</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="logo small">amazona</span>
+      <span>© 2025 Amazona Clone Demo</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

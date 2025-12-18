@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/favicon.png">
+
+  <title>Create Account & Login</title>
+  <style>
+    body {
+      background: #b5de83;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: #fff;
+      width: 420px;
+      padding: 35px 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #1f4ae0;
+      margin-bottom: 25px;
+    }
+    label {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    input[type="email"],
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 6px 0 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    input:focus {
+      border-color: #1f4ae0;
+      outline: none;
+    }
+    .checkbox-area {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: #1f4ae0;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .btn:hover {
+      background: #1436a1;
+    }
+    .error {
+      color: #d11a1a;
+      font-size: 13px;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+    .links {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .links a {
+      color: #1f4ae0;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="createPage">
+      <h2>Create your account</h2>
+        <form id="registerForm">
+          <label>Email</label>
+          <input type="email" id="regEmail" placeholder="Enter email">
+          <p class="error" id="regEmailError"></p>
+
+          <label>Username</label>
+          <input type="text" id="regUsername" placeholder="Enter username">
+          <p class="error" id="regUsernameError"></p>
+
+          <label>Password</label>
+          <input type="password" id="regPassword" placeholder="Enter password">
+          <p class="error" id="regPasswordError"></p>
+
+          <label>Confirm password</label>
+          <input type="password" id="regConfirm" placeholder="Confirm password">
+          <p class="error" id="regConfirmError"></p>
+
+          <div class="checkbox-area">
+            <input type="checkbox" id="regSubscribe">
+            <label>Subscribe to get the latest announcements and offers.</label>
+          </div>
+
+          <button type="submit" class="btn">Create</button>
+
+          <div class="links">
+            <p>Already have an account? <a id="goLogin">Log in</a></p>
+          </div>
+      </form>
+    </div>
+    <div id="loginPage" style="display:none;">
+      <h2>Login</h2>
+        <form id="loginForm">
+          <label>Email</label>
+          <input type="email" id="logEmail" placeholder="Enter your email">
+          <p class="error" id="logEmailError"></p>
+
+          <label>Password</label>
+          <input type="password" id="logPassword" placeholder="Enter your password">
+          <p class="error" id="logPasswordError"></p>
+
+          <button type="submit" class="btn">Login</button>
+
+          <div class="links">
+            <p>Don't have an account? <a id="goCreate">Create account</a></p>
+          </div>
+        </form>
+    </div>
+  </div>
+
+  <script>
+    const createPage = document.getElementById("createPage");
+    const loginPage = document.getElementById("loginPage");
+
+    document.getElementById("goLogin").onclick = () => {
+      createPage.style.display = "none";
+      loginPage.style.display = "block";
+    };
+
+    document.getElementById("goCreate").onclick = () => {
+      loginPage.style.display = "none";
+      createPage.style.display = "block";
+    };
+
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let valid = true;
+
+      const email = document.getElementById("regEmail").value.trim();
+      const username = document.getElementById("regUsername").value.trim();
+      const password = document.getElementById("regPassword").value.trim();
+      const confirm = document.getElementById("regConfirm").value.trim();
+
+      const emailErr = document.getElementById("regEmailError");
+      const userErr = document.getElementById("regUsernameError");
+      const passErr = document.getElementById("regPasswordError");
+      const confirmErr = document.getElementById("regConfirmError");
+
+      emailErr.textContent = "";
+      userErr.textContent = "";
+      passErr.textContent = "";
+      confirmErr.textContent = "";
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        emailErr.textContent = "Enter a valid email.";
+        valid = false;
+      }
+
+      if (username.length < 3) {
+        userErr.textContent = "Username must be at least 3 characters.";
+        valid = false;
+      }
+
+      if (password.length < 6) {
+        passErr.textContent = "Password must be at least 6 characters.";
+        valid = false;
+      }
+
+      if (password !== confirm) {
+        confirmErr.textContent = "Passwords do not match.";
+        valid = false;
+      }
+
+      if (valid) {
+        alert("Account created successfully!");
+        this.reset();
+      }
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let valid = true;
+
+      const email = document.getElementById("logEmail").value.trim();
+      const password = document.getElementById("logPassword").value.trim();
+
+      const emailErr = document.getElementById("logEmailError");
+      const passErr = document.getElementById("logPasswordError");
+
+      emailErr.textContent = "";
+      passErr.textContent = "";
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        emailErr.textContent = "Enter a valid email.";
+        valid = false;
+      }
+      if (password.length < 1) {
+        passErr.textContent = "Password cannot be empty.";
+        valid = false;
+      }
+      if (valid) {
+        alert("Login successful!");
+        this.reset();
+      }
+    });
+  </script>
+</body>
+</html>

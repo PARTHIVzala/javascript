@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TMDB — Movie Explorer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>🎬 Movie Explorer</h1>
+      <small>Powered by TMDB</small>
+    </div>
+
+    <div class="search">
+      <input id="searchInput" placeholder="Search movies, e.g. The Matrix" aria-label="Search movies" />
+      <button id="searchBtn" class="btn">Search</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Movie lists">
+    <button class="tab active" data-tab="trending">Trending</button>
+    <button class="tab" data-tab="popular">Popular</button>
+    <button class="tab" data-tab="top_rated">Top Rated</button>
+  </nav>
+
+  <main class="container">
+    <section id="status" class="status"></section>
+
+    <section id="list" class="grid" aria-live="polite">
+      <!-- movie cards -->
+    </section>
+
+    <div class="pager">
+      <button id="prevPage" class="btn ghost">Prev</button>
+      <div id="pageInfo" class="pageInfo">Page 1 / 1</div>
+      <button id="nextPage" class="btn ghost">Next</button>
+    </div>
+  </main>
+
+  <!-- Movie detail modal -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modalContent">
+      <button id="modalClose" class="close" aria-label="Close">✕</button>
+      <div class="modalBody">
+        <img id="modalPoster" alt="" class="poster">
+        <div class="meta">
+          <h2 id="modalTitle"></h2>
+          <p id="modalMeta" class="muted"></p>
+          <p id="modalOverview"></p>
+          <div id="modalExtra" class="extra"></div>
+          <div id="modalTrailer" class="trailer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <small>Get an API key at <a href="https://www.themoviedb.org/settings/api" target="_blank">themoviedb.org</a>.
+      Replace it in <code>script.js</code>.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

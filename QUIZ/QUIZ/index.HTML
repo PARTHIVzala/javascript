@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kaun Banega Karodpati</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Kaun Banega Karodpati</h1>
+      <div class="small">Lifelines: <span id="lifelines-used">0/1</span></div>
+    </header>
+
+    <div class="container">
+
+      <main class="card">
+        <div id="start-screen">
+          <h2>Welcome!</h2>
+          <p class="small">KBC-style quiz. 10 questions, 1 lifeline (50-50), timer per question.</p>
+          <button class="btn" id="start-btn">Start Game</button>
+        </div>
+
+        <div id="play-screen" style="display:none">
+          <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+            <div>
+              <div class="timer">Time left: <span id="timer">30</span>s</div>
+              <div class="small">Question <span id="q-index">1</span> / <span id="q-total">10</span></div>
+            </div>
+
+            <div class="controls">
+              <button class="btn lifeline" id="lifeline-5050">50-50</button>
+              <button class="btn" id="walk-away">Walk Away</button>
+            </div>
+          </div>
+
+          <div class="question card" id="question-text">...</div>
+          <div class="options" id="options"></div>
+
+          <div style="margin-top:12px;display:flex;justify-content:space-between">
+            <div class="small">Status: <span id="status">Ready</span></div>
+
+            <div>
+              <button class="btn" id="next-btn" style="display:none">Next</button>
+              <button class="btn" id="restart-btn" style="display:none">Restart</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="end-screen" style="display:none">
+          <h2 id="end-title">Game Over</h2>
+          <p id="end-msg">You won ₹0</p>
+          <button class="btn" id="play-again">Play Again</button>
+        </div>
+
+      </main>
+
+      <aside class="card">
+        <h3>Prize Ladder</h3>
+        <div class="ladder" id="prize-ladder"></div>
+        <p class="small">Guaranteed: ₹1,60,000 </p>
+      </aside>
+
+    </div>
+  </div>
+</body>
+<script src="script.js"></script>
+
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product Details - Amazon</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- SAME HEADER (cart + logo) -->
+  <header class="nav" id="top">
+    <div class="nav-left">
+      <a href="index.html" class="logo-link">
+        <div class="logo">amazon</div>
+      </a>
+
+      <div class="nav-location">
+        <span class="small-text">Deliver to</span>
+        <span class="bold-text">India</span>
+      </div>
+    </div>
+
+    <div class="nav-search">
+      <select class="search-select">
+        <option>All</option>
+        <option>Electronics</option>
+        <option>Mobiles</option>
+        <option>Fashion</option>
+      </select>
+      <input class="search-input" type="text" placeholder="Search amazona.in" />
+      <button class="search-btn">🔍</button>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-item">
+        <span class="small-text">Hello, Sign in</span>
+        <span class="bold-text">Account & Lists</span>
+      </div>
+      <div class="nav-item">
+        <span class="small-text">Returns</span>
+        <span class="bold-text">& Orders</span>
+      </div>
+      <!-- CART BUTTON -->
+      <div class="nav-cart" id="cart-btn">
+        🛒
+        <span class="cart-count" id="cart-count">0</span>
+        <span class="bold-text">Cart</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- SIMPLE SUB NAV -->
+  <nav class="sub-nav">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <span>Product details</span>
+  </nav>
+
+  <!-- PRODUCT DETAIL CONTENT -->
+  <main class="product-main">
+    <section class="product-page">
+      <div class="product-page-left">
+        <div class="product-page-img" id="pd-img"></div>
+      </div>
+
+      <div class="product-page-center">
+        <h1 class="product-page-title" id="pd-title">Product title</h1>
+
+        <img id="pd-image" src="" alt="Product Image" class="product-detail-img">
+
+        <p class="product-page-desc" id="pd-desc">
+          Product description…
+        </p>
+
+        <div class="product-page-rating">
+          ⭐⭐⭐⭐☆ <span>(1,234 ratings)</span>
+        </div>
+      </div>
+
+
+      <div class="product-page-right">
+        <div class="product-page-price">
+          <span class="price-label">Price:</span>
+          <span class="price-value" id="pd-price">₹0</span>
+        </div>
+        <p class="product-page-offer">Inclusive of all taxes</p>
+
+        <button class="add-to-cart-btn product-page-add-btn" id="pd-add-btn" data-id="" data-name="" data-price="">
+          Add to Cart
+        </button>
+
+        <p class="product-page-stock">In stock</p>
+        <p class="product-page-fulfilled">Fulfilled by Amazona</p>
+
+        <a href="index.html" class="back-home-link">← Back to Home</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- CART OVERLAY & PANEL (same as home) -->
+  <div class="cart-overlay" id="cart-overlay">
+    <div class="cart-panel">
+      <div class="cart-header">
+        <h2>Your Cart</h2>
+        <button class="cart-close-btn" id="cart-close-btn">✕</button>
+      </div>
+
+      <div class="cart-body">
+        <ul class="cart-items" id="cart-items">
+          <!-- JS se items aayenge -->
+        </ul>
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span>Subtotal:</span>
+          <span id="cart-total">₹0</span>
+        </div>
+        <button class="cart-clear-btn" id="cart-clear-btn">Clear Cart</button>
+        <button class="cart-checkout-btn">Proceed to Buy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <a href="#top" class="back-to-top">Back to top</a>
+    <div class="footer-links">
+      <div>
+        <h4>Get to Know Us</h4>
+        <a href="#">About us</a>
+        <a href="#">Careers</a>
+        <a href="#">Press Releases</a>
+      </div>
+      <div>
+        <h4>Connect with Us</h4>
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+      </div>
+      <div>
+        <h4>Make Money with Us</h4>
+        <a href="#">Sell on amazona</a>
+        <a href="#">Advertise your products</a>
+        <a href="#">Become an Affiliate</a>
+      </div>
+      <div>
+        <h4>Let Us Help You</h4>
+        <a href="#">Your Account</a>
+        <a href="#">Returns Centre</a>
+        <a href="#">Help</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="logo small">amazon</span>
+      <span>© 2025 Amazon</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
