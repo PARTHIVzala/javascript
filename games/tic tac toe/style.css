@@ -1,5 +1,6 @@
 body {
     background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    background-image: url(../images/background.jpg);
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
