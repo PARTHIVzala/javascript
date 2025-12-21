@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Uttran Soup Corner</title>
@@ -10,61 +11,89 @@
 
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header>
-  <h1>🍲 Uttran Soup Corner</h1>
-  <p>Fresh • Hygienic • Healthy</p>
-</header>
+  <header>
+    <h1>🍲 Uttran Soup Corner</h1>
+    <p>Fresh • Hygienic • Healthy</p>
+  </header>
 
-<section class="offer">
-  🔥 Today Offer: Any Soup @ ₹49 🔥
-</section>
+  <section class="offer">
+    🔥 Today Offer: Any Soup @ ₹49 🔥
+  </section>
 
-<section class="menu">
-  <h2>Our Menu</h2>
+  <section class="menu">
+    <h2>Our Menu</h2>
 
-  <div class="grid">
+    <div class="grid">
 
-    <div class="card">
-      <img src="images/tomato.jpg" />
-      <h3>Tomato Soup</h3>
-      <p>Fresh tomatoes & herbs</p>
-      <span>₹50</span>
-      <button onclick="add('Tomato Soup',50)">Add</button>
+      <div class="card">
+        <img src="images/tomato.jpg" />
+        <h3>Tomato Soup</h3>
+        <p>Fresh tomatoes & herbs</p>
+        <span>₹50</span>
+        <button onclick="add('Tomato Soup',50)">Add</button>
+      </div>
+
+      <div class="card">
+        <img src="images/sweetcorn.jpg" />
+        <h3>Sweet Corn Soup</h3>
+        <p>Classic taste</p>
+        <span>₹60</span>
+        <button onclick="add('Sweet Corn Soup',60)">Add</button>
+      </div>
+
+      <div class="card">
+        <img src="images/manchow.jpg" />
+        <h3>Manchow Soup</h3>
+        <p>Spicy & hot</p>
+        <span>₹70</span>
+        <button onclick="add('Manchow Soup',70)">Add</button>
+      </div>
+
     </div>
+  </section>
 
-    <div class="card">
-      <img src="images/sweetcorn.jpg" />
-      <h3>Sweet Corn Soup</h3>
-      <p>Classic taste</p>
-      <span>₹60</span>
-      <button onclick="add('Sweet Corn Soup',60)">Add</button>
-    </div>
-
-    <div class="card">
-      <img src="images/manchow.jpg" />
-      <h3>Manchow Soup</h3>
-      <p>Spicy & hot</p>
-      <span>₹70</span>
-      <button onclick="add('Manchow Soup',70)">Add</button>
-    </div>
-
-  </div>
-</section>
-
-<section class="cart">
+ <section class="cart">
   <h2>🛒 Cart</h2>
-  <ul id="items"></ul>
-  <h3>Total: ₹<span id="total">0</span></h3>
+
+  <table class="cart-table">
+    <thead>
+      <tr>
+        <th>Soup</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody id="items"></tbody>
+  </table>
+
+  <h3>Total Amount: ₹<span id="total">0</span></h3>
+
+  <h3>Select Payment Method</h3>
+  <div class="payment">
+    <label>
+      <input type="radio" name="payment" value="Cash" checked>
+      💵 Cash
+    </label>
+    <label>
+      <input type="radio" name="payment" value="UPI">
+      📲 UPI
+    </label>
+  </div>
+
   <button onclick="order()">📲 Order on WhatsApp</button>
 </section>
 
-<footer>
-  📍 Uttran, Surat <br>
-  ⏰ 6 PM – 11 PM
-</footer>
 
-<script src="script.js"></script>
+  <footer>
+    📍 Uttran, Surat <br>
+    ⏰ 6 PM – 11 PM
+  </footer>
+
+  <script src="script.js"></script>
 </body>
+
 </html>

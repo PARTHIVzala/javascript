@@ -1,71 +1,102 @@
-*{box-sizing:border-box;font-family:Segoe UI,Arial}
-body{margin:0;background:#f4f4f4}
-
-header{
-  background:#e63946;
-  color:#fff;
-  padding:20px;
-  text-align:center;
+* {
+  box-sizing: border-box;
+  font-family: Segoe UI, Arial
 }
 
-.offer{
-  background:#ffd166;
-  text-align:center;
-  padding:10px;
-  font-weight:bold;
+body {
+  margin: 0;
+  background: #f4f4f4;
+  overflow-x: hidden;
 }
 
-.menu{padding:20px}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
+header {
+  background: #e63946;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
 }
 
-.card{
-  background:#fff;
-  border-radius:12px;
-  box-shadow:0 6px 12px rgba(0,0,0,.1);
-  text-align:center;
-  padding:10px;
+.offer {
+  background: #ffd166;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
 }
 
-.card img{
-  width:100%;
-  height:300px;
-  object-fit:cover;
-  border-radius:10px;
+.menu {
+  padding: 20px
 }
 
-.card button{
-  background:#1d3557;
-  color:#fff;
-  border:none;
-  padding:8px 14px;
-  border-radius:6px;
-  cursor:pointer;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
 }
 
-.cart{
-  background:#fff;
-  margin:20px;
-  padding:20px;
-  border-radius:12px;
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .1);
+  text-align: center;
+  padding: 10px;
 }
 
-.cart button{
-  width:100%;
-  padding:10px;
-  background:#2a9d8f;
-  border:none;
-  color:#fff;
-  font-size:16px;
-  border-radius:6px;
+.card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
-footer{
-  background:#1d3557;
-  color:#fff;
-  text-align:center;
-  padding:12px;
+.card button {
+  background: #1d3557;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.cart-table th,
+.cart-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.cart-table th {
+  background: #ff6a00;
+  color: #fff;
+}
+
+.qty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.qty button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: #ff6a00;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+footer {
+  background: #1d3557;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
 }
