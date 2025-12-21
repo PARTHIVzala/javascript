@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hot Soup Corner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>🍲 Hot Soup Corner</h1>
+    <p>Fresh & Healthy Soups</p>
+  </header>
+
+  <section class="menu">
+    <h2>Our Soup Menu</h2>
+
+    <div class="soup-list">
+
+      <div class="soup-card">
+        <h3>Tomato Soup</h3>
+        <p>Fresh tomatoes & spices</p>
+        <span>₹50</span>
+        <button onclick="addToCart('Tomato Soup',50)">Add</button>
+      </div>
+
+      <div class="soup-card">
+        <h3>Sweet Corn Soup</h3>
+        <p>Classic sweet corn taste</p>
+        <span>₹60</span>
+        <button onclick="addToCart('Sweet Corn Soup',60)">Add</button>
+      </div>
+
+      <div class="soup-card">
+        <h3>Manchow Soup</h3>
+        <p>Spicy Indo-Chinese</p>
+        <span>₹70</span>
+        <button onclick="addToCart('Manchow Soup',70)">Add</button>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cart">
+    <h2>🛒 Cart</h2>
+    <ul id="cartItems"></ul>
+    <h3>Total: ₹<span id="total">0</span></h3>
+    <button class="order-btn" onclick="placeOrder()">Place Order</button>
+  </section>
+
+  <footer>
+    <p>📍 Uttran, Surat | ☎ 99999 99999</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
