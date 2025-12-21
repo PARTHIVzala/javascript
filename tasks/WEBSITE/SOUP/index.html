@@ -2,57 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hot Soup Corner</title>
+  <title>Uttran Soup Corner</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header>
-    <h1>🍲 Hot Soup Corner</h1>
-    <p>Fresh & Healthy Soups</p>
-  </header>
+<header>
+  <h1>🍲 Uttran Soup Corner</h1>
+  <p>Fresh • Hygienic • Healthy</p>
+</header>
 
-  <section class="menu">
-    <h2>Our Soup Menu</h2>
+<section class="offer">
+  🔥 Today Offer: Any Soup @ ₹49 🔥
+</section>
 
-    <div class="soup-list">
+<section class="menu">
+  <h2>Our Menu</h2>
 
-      <div class="soup-card">
-        <h3>Tomato Soup</h3>
-        <p>Fresh tomatoes & spices</p>
-        <span>₹50</span>
-        <button onclick="addToCart('Tomato Soup',50)">Add</button>
-      </div>
+  <div class="grid">
 
-      <div class="soup-card">
-        <h3>Sweet Corn Soup</h3>
-        <p>Classic sweet corn taste</p>
-        <span>₹60</span>
-        <button onclick="addToCart('Sweet Corn Soup',60)">Add</button>
-      </div>
-
-      <div class="soup-card">
-        <h3>Manchow Soup</h3>
-        <p>Spicy Indo-Chinese</p>
-        <span>₹70</span>
-        <button onclick="addToCart('Manchow Soup',70)">Add</button>
-      </div>
-
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1604908177522-432a07f2b4c0" />
+      <h3>Tomato Soup</h3>
+      <p>Fresh tomatoes & herbs</p>
+      <span>₹50</span>
+      <button onclick="add('Tomato Soup',50)">Add</button>
     </div>
-  </section>
 
-  <section class="cart">
-    <h2>🛒 Cart</h2>
-    <ul id="cartItems"></ul>
-    <h3>Total: ₹<span id="total">0</span></h3>
-    <button class="order-btn" onclick="placeOrder()">Place Order</button>
-  </section>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1615485925873-9ac2b37e63cc" />
+      <h3>Sweet Corn Soup</h3>
+      <p>Classic taste</p>
+      <span>₹60</span>
+      <button onclick="add('Sweet Corn Soup',60)">Add</button>
+    </div>
 
-  <footer>
-    <p>📍 Uttran, Surat | ☎ 99999 99999</p>
-  </footer>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1605475127983-49f2fbd9f443" />
+      <h3>Manchow Soup</h3>
+      <p>Spicy & hot</p>
+      <span>₹70</span>
+      <button onclick="add('Manchow Soup',70)">Add</button>
+    </div>
 
-  <script src="script.js"></script>
+  </div>
+</section>
+
+<section class="cart">
+  <h2>🛒 Cart</h2>
+  <ul id="items"></ul>
+  <h3>Total: ₹<span id="total">0</span></h3>
+  <button onclick="order()">📲 Order on WhatsApp</button>
+</section>
+
+<footer>
+  📍 Uttran, Surat <br>
+  ⏰ 6 PM – 11 PM
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

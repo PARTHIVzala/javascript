@@ -1,23 +1,22 @@
 let total = 0;
-const cartItems = document.getElementById("cartItems");
-const totalEl = document.getElementById("total");
+let list = [];
 
-function addToCart(name, price) {
-  const li = document.createElement("li");
-  li.textContent = `${name} - ₹${price}`;
-  cartItems.appendChild(li);
-
+function add(name, price){
+  list.push(`${name} - ₹${price}`);
   total += price;
-  totalEl.textContent = total;
+
+  document.getElementById("items").innerHTML =
+    list.map(i=>`<li>${i}</li>`).join("");
+
+  document.getElementById("total").innerText = total;
 }
 
-function placeOrder() {
-  if (total === 0) {
-    alert("Cart is empty!");
-  } else {
-    alert("Order placed successfully! 🍲");
-    cartItems.innerHTML = "";
-    total = 0;
-    totalEl.textContent = total;
+function order(){
+  if(total===0){
+    alert("Cart empty");
+    return;
   }
+
+  const msg = `Hello, I want to order:%0A${list.join("%0A")}%0ATotal: ₹${total}`;
+  window.open(`https://wa.me/919999999999?text=${msg}`,"_blank");
 }
