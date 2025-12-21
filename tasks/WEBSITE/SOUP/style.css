@@ -1,62 +1,117 @@
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  font-family: Segoe UI, Arial
 }
 
 body {
-  margin: 0;
-  background: #f4f4f4;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f7f7f7;
+  color: #333;
   overflow-x: hidden;
 }
 
 header {
-  background: #e63946;
-  color: #fff;
-  padding: 20px;
+  background: #ff6a00;
+  color: white;
   text-align: center;
+  padding: 18px 10px;
 }
 
+header h1 {
+  font-size: 26px;
+}
+
+header p {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* ===== OFFER ===== */
 .offer {
-  background: #ffd166;
+  background: #ffe0cc;
+  color: #d9480f;
   text-align: center;
   padding: 10px;
   font-weight: bold;
 }
 
+/* ===== MENU ===== */
 .menu {
-  padding: 20px
+  padding: 20px;
 }
 
+.menu h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* ===== GRID ===== */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 15px;
 }
 
+/* ===== CARD ===== */
 .card {
-  background: #fff;
+  background: white;
   border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, .1);
+  padding: 12px;
   text-align: center;
-  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 .card img {
   width: 100%;
-  height: 300px;
+  height: 150px;
   object-fit: cover;
   border-radius: 10px;
 }
 
+.card h3 {
+  margin: 10px 0 4px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #666;
+}
+
+.card span {
+  display: block;
+  margin: 6px 0;
+  font-weight: bold;
+}
+
 .card button {
-  background: #1d3557;
-  color: #fff;
+  background: #ff6a00;
+  color: white;
   border: none;
+  border-radius: 8px;
   padding: 8px 14px;
-  border-radius: 6px;
   cursor: pointer;
 }
 
+.card button:hover {
+  background: #e85c00;
+}
+
+/* ===== CART ===== */
+.cart {
+  background: white;
+  margin: 20px;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.cart h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* ===== CART TABLE ===== */
 .cart-table {
   width: 100%;
   border-collapse: collapse;
@@ -72,9 +127,10 @@ header {
 
 .cart-table th {
   background: #ff6a00;
-  color: #fff;
+  color: white;
 }
 
+/* ===== QTY BUTTONS ===== */
 .qty {
   display: flex;
   justify-content: center;
@@ -93,10 +149,79 @@ header {
   font-weight: bold;
 }
 
+/* ===== PAYMENT ===== */
+.payment {
+  margin: 10px 0;
+}
 
+.payment label {
+  display: block;
+  margin: 6px 0;
+}
+
+/* ===== WHATSAPP BUTTON ===== */
+.cart button {
+  width: 100%;
+  background: #25D366;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+
+.cart button:hover {
+  background: #1ebe5d;
+}
+
+/* ===== FOOTER ===== */
 footer {
-  background: #1d3557;
-  color: #fff;
   text-align: center;
-  padding: 12px;
+  padding: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 600px) {
+
+  header h1 {
+    font-size: 22px;
+  }
+
+  .cart-table thead {
+    display: none;
+  }
+
+  .cart-table,
+  .cart-table tbody,
+  .cart-table tr,
+  .cart-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .cart-table tr {
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .cart-table td {
+    border: none;
+    text-align: left;
+    padding: 6px 0;
+  }
+
+  .cart-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    color: #ff6a00;
+  }
 }
