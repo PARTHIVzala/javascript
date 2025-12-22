@@ -3,7 +3,6 @@ let total = JSON.parse(localStorage.getItem("total")) || 0;
 
 render();
 
-/* Add item */
 function add(name, price) {
   let item = cart.find(i => i.name === name);
 
@@ -18,7 +17,6 @@ function add(name, price) {
   render();
 }
 
-/* Render table */
 function render() {
   let tbody = document.getElementById("items");
   tbody.innerHTML = "";
