@@ -58,7 +58,7 @@ function showQ() {
     state.timeLeft = 15;
     timerEl.textContent = state.timeLeft;
     state.answered = false;
-    nextBtn.style.display = "none"
+    nextBtn.style.display = "auto"
     statusEl.textContent = "Answer";
 
     const q = QUESTIONS[state.index];
@@ -126,10 +126,6 @@ function revealCorrect(i) {
         if (x === i) c.classList.add("correct");
     });
 }
-nextBtn.onclick = () => {
-    state.index++;
-    if (state.index >= QUESTIONS.length) end(true, true);
-    else showQ();
-};
+
 
 playAgain.onclick = () => location.reload();
