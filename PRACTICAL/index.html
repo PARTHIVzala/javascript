@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Invoice With Calculation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="invoice-box">
+        <h2>INVOICE</h2>
+        <div class="details">
+            <p>
+            <input type="text" placeholder="Customer Name">
+            <input type="number" placeholder="Invoice Number">
+            <input type="text" placeholder="Full Address">
+            <input type="date">
+            <input type="city" placeholder="City Name">
+            </p>
+        </div>
+
+        <table id="invoiceTable">
+            <tr>
+                <th>Particular</th>
+                <th>Qty</th>
+                <th>Rate</th>
+                <th>Amount</th>
+            </tr>
+            <tr>
+                <td><input type="text" class="item"></td>
+                <td><input type="number" class="qty" oninput="calculate()"></td>
+                <td><input type="number" class="rate" oninput="calculate()"></td>
+                <td><input type="number" class="amount" ></td>
+            </tr>
+        </table>
+
+        <button onclick="addRow()">Add Item</button>
+
+        <div class="total-section">
+            <p>Total: <span id="subtotal">0</span></p>
+            <p>Discount: <input type="number" id="discount" oninput="calculate()"></p>
+            <p>GST (18%): <span id="gst">0</span></p>
+            <h3>Net Amount: <span id="grandTotal">0</span></h3>
+        </div>
+        <button onclick="resetForm()">Reset</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -92,7 +92,7 @@ function order() {
   message += `%0A📍 Uttran, Surat`;
 
   let phone = "91XXXXXXXXXX"; // 🔴 your WhatsApp number
-  window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+  window.open(`https://wa.me/${9638592880}?text=${order}`, "_blank");
 
   cart = [];
   total = 0;

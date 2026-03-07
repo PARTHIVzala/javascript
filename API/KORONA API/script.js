@@ -1,4 +1,12 @@
-let chart;
+let chart = null;
+
+// DOM elements
+const casesEl = document.getElementById("cases");
+const recoveredEl = document.getElementById("recovered");
+const deathsEl = document.getElementById("deaths");
+const updatedEl = document.getElementById("updated");
+const countryInput = document.getElementById("countryInput");
+const covidChart = document.getElementById("covidChart");
 
 window.onload = () => {
     fetchData("India");
@@ -16,21 +24,24 @@ function getData() {
 function fetchData(country) {
     fetch(`https://disease.sh/v3/covid-19/countries/${country}`)
         .then(res => {
-            if (!res.ok) throw Error();
+            if (!res.ok) throw new Error("Country not found");
             return res.json();
         })
         .then(data => {
-            cases.innerText = data.cases.toLocaleString();
-            recovered.innerText = data.recovered.toLocaleString();
-            deaths.innerText = data.deaths.toLocaleString();
-            updated.innerText = "Last Updated: " +
-                new Date(data.updated).toLocaleString();
+            casesEl.innerText = data.cases.toLocaleString();
+            recoveredEl.innerText = data.recovered.toLocaleString();
+            deathsEl.innerText = data.deaths.toLocaleString();
+            updatedEl.innerText =
+                "Last Updated: " + new Date(data.updated).toLocaleString();
+
             drawChart(data);
         })
-        .catch(() => alert("Country not found"));
+        .catch(() => {
+            alert("❌ Country not found. Try: India, USA, UK");
+        });
 }
 
-function drawChart(d) {
+function drawChart(data) {
     if (chart) chart.destroy();
 
     chart = new Chart(covidChart, {
@@ -38,9 +49,15 @@ function drawChart(d) {
         data: {
             labels: ["Cases", "Recovered", "Deaths"],
             datasets: [{
-                data: [d.cases, d.recovered, d.deaths],
+                data: [data.cases, data.recovered, data.deaths],
                 backgroundColor: ["#f59e0b", "#10b981", "#ef4444"]
             }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
         }
     });
 }
