@@ -31,7 +31,8 @@ body {
 }
 
 header {
-    display: flex;
+
+    display: center;
     align-items: center;
     justify-content: space-between;
     padding: 18px 22px;
