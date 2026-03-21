@@ -1,0 +1,60 @@
+body {
+  font-family: Arial;
+  background: #cdedf7;
+  overflow-x: hidden;
+}
+
+h1 {
+  text-align: center;
+}
+
+.wrapper {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.invoice-box {
+  background: #fff;
+  padding: 15px;
+  width: 50%;
+  border-radius: 10px;
+}
+
+.top input {
+  width: 32%;
+  margin: 5px 1%;
+  padding: 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+input {
+  width: 95%;
+  border: none;
+}
+
+button {
+  margin-top: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.totals {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.preview table td,
+.preview table th {
+  padding: 5px;
+}

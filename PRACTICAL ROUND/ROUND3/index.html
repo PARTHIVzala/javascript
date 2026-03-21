@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Invoice with Calculation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Invoice with Calculation</h1>
+
+<div class="wrapper">
+
+  <div class="invoice-box">
+    <h3>INVOICE</h3>
+
+    <div class="top">
+      <input placeholder="Customer Name" id="name">
+      <input placeholder="Inv No" value="">
+      <input type="date">
+    </div>
+
+    <div class="top">
+      <input placeholder="Address">
+      <input placeholder="City">
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Particular</th>
+          <th>Qty</th>
+          <th>Rate</th>
+          <th>Amount</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody id="leftBody">
+        <tr>
+          <td><input value="Item 1"></td>
+          <td><input type="number" value="10" class="qty"></td>
+          <td><input type="number" value="15" class="rate"></td>
+          <td class="amount">150</td>
+          <td><button onclick="deleteRow(this)">X</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button onclick="addRow()">Add</button>
+    <button onclick="printInvoice()">Print</button>
+
+    <div class="totals">
+      <p>Total: <span id="total">0</span></p>
+      <p>GST: <span id="gst">0</span></p>
+      <p>Net Amount: <span id="net">0</span></p>
+    </div>
+  </div>
+
+
+  <div class="invoice-box preview">
+    <h3>INVOICE</h3>
+
+    <div id="previewContent"></div>
+
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
