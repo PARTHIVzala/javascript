@@ -6,7 +6,7 @@ let recipes = [
 
 let selectedIndex = 0;
 
-// Elements
+
 const list = document.getElementById("recipeList");
 const viewImg = document.getElementById("viewImg");
 const viewTitle = document.getElementById("viewTitle");
@@ -18,7 +18,7 @@ const descInput = document.getElementById("desc");
 const imgInput = document.getElementById("img");
 const modalTitle = document.getElementById("modalTitle");
 
-// 👉 Render List
+
 function render() {
     list.innerHTML = "";
 
@@ -44,7 +44,7 @@ function render() {
     });
 }
 
-// 👉 Select Recipe
+
 function selectRecipe(i) {
     selectedIndex = i;
 
@@ -56,7 +56,6 @@ function selectRecipe(i) {
     render();
 }
 
-// 👉 Add Recipe
 document.getElementById("addBtn").onclick = () => {
     modalTitle.innerText = "Add Recipe";
 
@@ -67,7 +66,7 @@ document.getElementById("addBtn").onclick = () => {
     modal.style.display = "flex";
 };
 
-// 👉 Edit Recipe
+
 document.getElementById("editBtn").onclick = () => {
     const recipe = recipes[selectedIndex];
 
@@ -80,7 +79,7 @@ document.getElementById("editBtn").onclick = () => {
     modal.style.display = "flex";
 };
 
-// 👉 Save
+
 document.getElementById("saveBtn").onclick = () => {
     const title = titleInput.value.trim();
     const desc = descInput.value.trim();
@@ -103,11 +102,11 @@ document.getElementById("saveBtn").onclick = () => {
     selectRecipe(selectedIndex);
 };
 
-// 👉 Close Modal
+
 function closeModal() {
     modal.style.display = "none";
 }
 
-// 👉 Initial Load
+
 render();
 selectRecipe(selectedIndex);
