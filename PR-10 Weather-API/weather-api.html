@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather Info</title>
+
+  <!-- CSS Link -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>🌦️ Weather Info</h2>
+
+  <div class="search-container">
+    <input type="text" id="cityInput" placeholder="Enter city name" value="Surat" />
+    <button onclick="fetchWeather()">Get Weather</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>City</th>
+        <th>Temperature (°C)</th>
+        <th>Humidity (%)</th>
+        <th>Wind Speed (m/s)</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody id="weather-data"></tbody>
+  </table>
+
+  <!-- JS Link -->
+  <script src="script.js"></script>
+</body>
+</html>
