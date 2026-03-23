@@ -6,35 +6,11 @@ let recipes = [
 
 let selectedIndex = 0;
 
+
 const list = document.getElementById("recipeList");
 const viewImg = document.getElementById("viewImg");
 const viewTitle = document.getElementById("viewTitle");
 const viewDesc = document.getElementById("viewDesc");
-
-function render() {
-    list.innerHTML = "";
-    recipes.forEach((r, i) => {
-        list.innerHTML += `
-      <li onclick="selectRecipe(${i})">
-        <div>
-          <b>${r.title}</b><br>
-          <small>${r.desc}</small>
-        </div>
-        <img src="${r.img}">
-      </li>
-    `;
-    });
-}
-
-function selectRecipe(i) {
-    selectedIndex = i;
-    viewImg.src = recipes[i].img;
-    viewTitle.innerText = recipes[i].title;
-    viewDesc.innerText = recipes[i].desc;
-    render();
-}
-
-render();
 
 const modal = document.getElementById("modal");
 const titleInput = document.getElementById("title");
@@ -42,43 +18,95 @@ const descInput = document.getElementById("desc");
 const imgInput = document.getElementById("img");
 const modalTitle = document.getElementById("modalTitle");
 
+
+function render() {
+    list.innerHTML = "";
+
+    recipes.forEach((r, i) => {
+        const li = document.createElement("li");
+
+        // Active class
+        if (i === selectedIndex) {
+            li.classList.add("active");
+        }
+
+        li.innerHTML = `
+            <div>
+                <b>${r.title}</b><br>
+                <small>${r.desc}</small>
+            </div>
+            <img src="${r.img || 'img/p.jpg'}">
+        `;
+
+        li.onclick = () => selectRecipe(i);
+
+        list.appendChild(li);
+    });
+}
+
+
+function selectRecipe(i) {
+    selectedIndex = i;
+
+    const recipe = recipes[i];
+    viewImg.src = recipe.img || "img/p.jpg";
+    viewTitle.innerText = recipe.title;
+    viewDesc.innerText = recipe.desc;
+
+    render();
+}
+
 document.getElementById("addBtn").onclick = () => {
     modalTitle.innerText = "Add Recipe";
-    
+
     titleInput.value = "";
     descInput.value = "";
     imgInput.value = "";
-    modal.style.display = "block";
+
+    modal.style.display = "flex";
 };
+
 
 document.getElementById("editBtn").onclick = () => {
-    modalTitle.innerText = "Edit Recipe";
-    titleInput.value = recipes[selectedIndex].title;
-    descInput.value = recipes[selectedIndex].desc;
-    imgInput.value = recipes[selectedIndex].img;
-    modal.style.display = "block";
+    const recipe = recipes[selectedIndex];
 
+    modalTitle.innerText = "Edit Recipe";
+
+    titleInput.value = recipe.title;
+    descInput.value = recipe.desc;
+    imgInput.value = recipe.img;
+
+    modal.style.display = "flex";
 };
 
+
 document.getElementById("saveBtn").onclick = () => {
-    if (modalTitle.innerText === "Add Recipe") {
-        recipes.push({
-            title: titleInput.value,
-            desc: descInput.value,
-            img: imgInput.value
-        });
-    } else {
-        recipes[selectedIndex] = {
-            title: titleInput.value,
-            desc: descInput.value,
-            img: imgInput.value
-        };
+    const title = titleInput.value.trim();
+    const desc = descInput.value.trim();
+    const img = imgInput.value.trim() || "img/p.jpg";
+
+    if (!title || !desc) {
+        alert("Please fill all fields");
+        return;
     }
+
+    if (modalTitle.innerText === "Add Recipe") {
+        recipes.push({ title, desc, img });
+        selectedIndex = recipes.length - 1;
+    } else {
+        recipes[selectedIndex] = { title, desc, img };
+    }
+
     closeModal();
     render();
     selectRecipe(selectedIndex);
 };
 
+
 function closeModal() {
     modal.style.display = "none";
 }
+
+
+render();
+selectRecipe(selectedIndex);
