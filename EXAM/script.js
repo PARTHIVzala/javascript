@@ -1,72 +1,84 @@
-<<<<<<< HEAD
-const data = {
-    Fruit: {
-        img: "images/fruits.jpg",
-        title: "Fruit Salad",
-        desc: "Healthy fruit salad with fresh seasonal fruits."
-    },
-    Baguette: {
-        img: "images/BAGUETTE.jpg",
-        title: "Baguette",
-        desc: "Classic French baked bread."
-    },
-    Pasta: {
-        img: "images/pasta.jpg",
-        title: "Pasta Recipe",
-        desc: "Delicious Italian pasta made with vegetables."
-    },
-    Soup: {
-        img: "images/soup.jpg",
-        title: "Hot Soup",
-        desc: "Warm and healthy vegetable soup."
-    }
+let recipes = [
+    { title: "FRUIT", desc: "Fruit Salad", img: "img/f.jpg" },
+    { title: "BAGUETTE", desc: "Italian Bread", img: "img/b.jpg" },
+    { title: "PASTA", desc: "With Salad", img: "img/p.jpg" },
+];
 
-};//data → Saari recipe ki information store
+let selectedIndex = 0;
 
-function loadRecipe(name) {
-    document.getElementById("mainImg").src = data[name].img;
-    document.getElementById("title").innerText = data[name].title;
-    document.getElementById("desc").innerText = data[name].desc;
-    // loadRecipe() → Recipe click hone par image, title aur description change
+const list = document.getElementById("recipeList");
+const viewImg = document.getElementById("viewImg");
+const viewTitle = document.getElementById("viewTitle");
+const viewDesc = document.getElementById("viewDesc");
 
-    document.querySelectorAll(".recipe-list li").forEach(li => {
-        li.classList.remove("active");//.active class → Jo recipe select hoti hai usko highlight kare
+function render() {
+    list.innerHTML = "";
+    recipes.forEach((r, i) => {
+        list.innerHTML += `
+      <li onclick="selectRecipe(${i})">
+        <div>
+          <b>${r.title}</b><br>
+          <small>${r.desc}</small>
+        </div>
+        <img src="${r.img}">
+      </li>
+    `;
     });
-    Event.currentTarget.classList.add("active");//event.currentTarget → Jo list item click hua hai usko dikhata karta hai
-=======
-const data = {
-    Fruit: {
-        img: "images/fruits.jpg",
-        title: "Fruit Salad",
-        desc: "Healthy fruit salad with fresh seasonal fruits."
-    },
-    Baguette: {
-        img: "images/BAGUETTE.jpg",
-        title: "Baguette",
-        desc: "Classic French baked bread."
-    },
-    Pasta: {
-        img: "images/pasta.jpg",
-        title: "Pasta Recipe",
-        desc: "Delicious Italian pasta made with vegetables."
-    },
-    Soup: {
-        img: "images/soup.jpg",
-        title: "Hot Soup",
-        desc: "Warm and healthy vegetable soup."
+}
+
+function selectRecipe(i) {
+    selectedIndex = i;
+    viewImg.src = recipes[i].img;
+    viewTitle.innerText = recipes[i].title;
+    viewDesc.innerText = recipes[i].desc;
+    render();
+}
+
+render();
+
+const modal = document.getElementById("modal");
+const titleInput = document.getElementById("title");
+const descInput = document.getElementById("desc");
+const imgInput = document.getElementById("img");
+const modalTitle = document.getElementById("modalTitle");
+
+document.getElementById("addBtn").onclick = () => {
+    modalTitle.innerText = "Add Recipe";
+    
+    titleInput.value = "";
+    descInput.value = "";
+    imgInput.value = "";
+    modal.style.display = "block";
+};
+
+document.getElementById("editBtn").onclick = () => {
+    modalTitle.innerText = "Edit Recipe";
+    titleInput.value = recipes[selectedIndex].title;
+    descInput.value = recipes[selectedIndex].desc;
+    imgInput.value = recipes[selectedIndex].img;
+    modal.style.display = "block";
+
+};
+
+document.getElementById("saveBtn").onclick = () => {
+    if (modalTitle.innerText === "Add Recipe") {
+        recipes.push({
+            title: titleInput.value,
+            desc: descInput.value,
+            img: imgInput.value
+        });
+    } else {
+        recipes[selectedIndex] = {
+            title: titleInput.value,
+            desc: descInput.value,
+            img: imgInput.value
+        };
     }
+    closeModal();
+    render();
+    selectRecipe(selectedIndex);
+};
 
-};//data → Saari recipe ki information store
-
-function loadRecipe(name) {
-    document.getElementById("mainImg").src = data[name].img;
-    document.getElementById("title").innerText = data[name].title;
-    document.getElementById("desc").innerText = data[name].desc;
-    // loadRecipe() → Recipe click hone par image, title aur description change
-
-    document.querySelectorAll(".recipe-list li").forEach(li => {
-        li.classList.remove("active");//.active class → Jo recipe select hoti hai usko highlight kare
-    });
-    Event.currentTarget.classList.add("active");//event.currentTarget → Jo list item click hua hai usko dikhata karta hai
->>>>>>> eef993bfcbebfb586abf4d32ed3602478801d559
+function closeModal() {
+    modal.style.display = "none";
 }
