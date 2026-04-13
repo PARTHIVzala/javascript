@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+}
+
+/* Form */
+.review-container {
+  max-width: 420px;
+  margin: 50px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.review-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.review-container input,
+.review-container textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.review-container textarea {
+  resize: none;
+  height: 90px;
+}
+
+.review-container button {
+  width: 100%;
+  padding: 12px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.review-container button:hover {
+  background: #125aa0;
+}
+
+/* Review List */
+.review-list-title {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 22px;
+}
+
+.review-list {
+  max-width: 600px;
+  margin: 20px auto 60px;
+}
+
+.review-card {
+  display: flex;
+  gap: 15px;
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+/* Image */
+.image-box {
+  width: 70px;
+  height: 70px;
+}
+
+.profile-pic,
+.no-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.profile-pic {
+  object-fit: cover;
+  border: 2px solid #1976d2;
+}
+
+.no-image {
+  background: #e0e0e0;
+  color: #666;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Text */
+.review-content h4 {
+  margin: 0;
+}
+
+.review-content .email {
+  font-size: 12px;
+  color: #777;
+}
+
+.review-content .rating {
+  color: #ff9800;
+}
+
+.review-content .comment {
+  font-size: 14px;
+}
